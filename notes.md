@@ -11,6 +11,32 @@ $ git config --global user.email "email@example.com"
 
 注意`git config`命令的`--global`参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。
 
+#### 修改
+
+**设置**
+
+```
+git config --global user.name "yourName"
+
+git config --global user.email "yourEmail"
+```
+
+**查看设置的命令:**
+
+```
+git config --list 
+```
+
+**修改**
+
+然后通过以下命令既可以修改设置的全局用户名和邮箱:
+
+```shell
+git config --global --replace-all user.name "yourNewName"
+
+git config --global --replace-all user.email "yourNewEmail"
+```
+
 ### 仓库初始化
 
 初始化一个Git仓库，使用`git init`命令，当前目录成为仓库.
@@ -190,3 +216,67 @@ $ git checkout -- test.txt
 #### 小结
 
 命令`git rm`用于删除一个文件。如果一个文件已经被提交到版本库，那么你永远不用担心误删，但是要小心，你只能恢复文件到最新版本，你会丢失**最近一次提交后你修改的内容**。
+
+### SSH密钥配置
+
+```shell
+cd ~/.ssh
+```
+
+**如果之前有密钥且不用了**
+
+```shell
+rm  id_rsa
+rm  id_rsa.pub
+```
+
+**生成**
+
+```shell
+ ssh-keygen -t rsa -C "waldenth@outlook.com"
+```
+
+**.pub是公钥**
+
+```shell
+cat id_rsa.pub
+```
+
+**VPN下如果SSH被拒绝访问Github，使用HTTPS**
+
+```shell
+git remote add LeetCodeNote-https https://github.com/Waldenth/My-LeetCode.git
+git push [-u] LeetCodeNote-https master
+```
+
+#### 删除远程仓库
+
+删除远程仓库你可以使用命令：
+
+```shell
+git remote rm [别名]
+```
+
+#### 实例
+
+```shell
+$ git remote -v
+origin    git@github.com:tianqixin/runoob-git-test.git (fetch)
+origin    git@github.com:tianqixin/runoob-git-test.git (push)
+
+# 添加仓库 origin2
+$ git remote add origin2 git@github.com:tianqixin/runoob-git-test.git
+
+$ git remote -v
+origin    git@github.com:tianqixin/runoob-git-test.git (fetch)
+origin    git@github.com:tianqixin/runoob-git-test.git (push)
+origin2    git@github.com:tianqixin/runoob-git-test.git (fetch)
+origin2    git@github.com:tianqixin/runoob-git-test.git (push)
+
+# 删除仓库 origin2
+$ git remote rm origin2
+$ git remote -v
+origin    git@github.com:tianqixin/runoob-git-test.git (fetch)
+origin    git@github.com:tianqixin/runoob-git-test.git (push)
+```
+
