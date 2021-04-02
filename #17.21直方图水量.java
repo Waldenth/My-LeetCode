@@ -43,3 +43,31 @@ class Solution {
         return ans;
     }
 }
+
+
+class Solution {
+    public int trap(int[] height) {
+        if(height.length<=2)
+            return 0;
+        
+        Deque<Integer>stack=new ArrayDeque<>();
+        stack.addFirst(-1);
+        int ans=0;
+
+        for(int i=0;i<height.length;i++){
+            while(stack.peekFirst()!=-1&&height[i]>height[stack.peekFirst()]){
+                int curBottom=height[stack.peekFirst()];
+                while(stack.peekFirst()!=-1&&height[stack.peekFirst()]==curBottom){
+                    stack.pop();
+                }
+                if(stack.peekFirst()==-1){
+                    break;
+                }else{
+                    ans+=(Math.min(height[i],height[stack.peekFirst()])-curBottom)*(i-stack.peekFirst()-1);
+                }
+            }
+            stack.addFirst(i);
+        }
+        return ans;
+    }
+}
