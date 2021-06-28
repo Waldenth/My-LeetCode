@@ -18,15 +18,15 @@ class Solution {
         int[] distance=new int[n];
         Arrays.fill(distance,-1);
         Deque<Integer>queue =new ArrayDeque<>();
-        for(int site:routesMap.getOrDefault(source,new ArrayList<Integer>())){
-            distance[site]=1;
-            queue.addLast(site);
+        for(int lineNumber:routesMap.getOrDefault(source,new ArrayList<Integer>())){
+            distance[lineNumber]=1;
+            queue.addLast(lineNumber);
         }
         while(queue.size()>0){
-            int curSite=queue.pollFirst();
+            int curLineNumber=queue.pollFirst();
             for(int i=0;i<n;i++){
-                if(edge[curSite][i]&&distance[i]==-1){
-                    distance[i]=distance[curSite]+1;
+                if(edge[curLineNumber][i]&&distance[i]==-1){
+                    distance[i]=distance[curLineNumber]+1;
                     queue.addLast(i);
                 }
             }
